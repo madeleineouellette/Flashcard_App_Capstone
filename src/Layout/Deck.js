@@ -17,7 +17,7 @@ function Deck(){
              setDeck(response)
         }
         loadDeck()
-    }, []);
+    }, [deckId]);
 
 
  function deleteDeckHandler(deckId) {

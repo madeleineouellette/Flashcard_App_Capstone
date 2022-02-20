@@ -20,7 +20,7 @@ function EditDeck(){
              console.log(response)
         }
         loadDeck()
-    }, [])
+    }, [deckId])
 
     
     const submitHandler= async (event) =>{
@@ -69,7 +69,7 @@ function EditDeck(){
                 id="name"
                 type="text"
                 name="name"
-                placeholder={deck.name}
+                value={deck.name}
                 onChange={handleNameChange}
                 />
                 </div>
@@ -80,7 +80,7 @@ function EditDeck(){
                 id="description"
                 type="text"
                 name="description"
-                placeholder={deck.description}
+                value={deck.description}
                 onChange={handleDescriptionChange}
                 />
                 </div>

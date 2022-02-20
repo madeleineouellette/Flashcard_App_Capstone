@@ -24,7 +24,7 @@ function Study(){
              setCardsLength(response.cards.length)
         }
         loadDeck()
-    }, [])
+    }, [deckId])
 
      //   flip button
         const flipButtonHandler = (event) => {
@@ -63,7 +63,7 @@ function Study(){
                     <nav aria-label="breadcrumb">
                  <ol className="breadcrumb">
                      <li className="breadcrumb-item">
-                    <Link>
+                    <Link to="/">
                      <FontAwesomeIcon icon={faHome}/>
                         Home
                      </Link>                </li>
@@ -115,7 +115,7 @@ function Study(){
         <div>
             <h1>{deck.name}: Study</h1>
         </div>
-        <div div className="card float-center d-grid gap-2 d-md-block mt-2 mb-4" style={{ width: '30rem' }}>
+        <div className="card float-center d-grid gap-2 d-md-block mt-2 mb-4" style={{ width: '30rem' }}>
             <div className="card-body">
             <h2>Card {cardIndexNumber+1} of {cardsLength}</h2>
 

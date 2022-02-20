@@ -3,6 +3,7 @@ import {Link, useHistory, useParams} from "react-router-dom";
 import { readCard, readDeck, updateCard } from "../utils/api/index";
 import { faHome} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CardForm from "./CardForm";
 
 
 
@@ -28,7 +29,7 @@ useEffect(() => {
         setDeck(response)
     }
     loadDeck()
-}, [])
+}, [deckId])
 
 useEffect(() => {
     async function loadCard(){
@@ -36,7 +37,7 @@ useEffect(() => {
          setCard(response)
     }
     loadCard()
-}, []);
+}, [cardId]);
 
 function cancelButtonHandler(event) {
     event.preventDefault();
@@ -59,44 +60,30 @@ return (
                  <li className="breadcrumb-item">
                      <Link to="/">
                      <FontAwesomeIcon icon={faHome}/>
-                    Home</Link>
+                    Home
+                    </Link>
                 </li>
-                 <li className="breadcrumb-item">Edit Card</li>
+                <li className="breadcrumb-item">
+                    <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+                </li>
+                 <li className="breadcrumb-item">Edit Card {card.id}</li>
             </ol>
          </nav>
-        <form onSubmit={submitButtonHandler}>
-            <div >
-                <h2>Edit Card</h2>
-                <div className="mb-3">
-                <label htmlFor="front" className="form-label">Front</label>
-                <textarea
-                className="form-control"
-                id="front"
-                type="text"
-                name="front"
-                placeholder={card.front}
-                onChange={handleFrontChange}
-                />
-                </div>
-                <div className="mb-3">
-                <label htmlFor="back" className="form-label">Back</label>
-                <textarea
-                className="form-control"
-                id="back"
-                type="text"
-                name="back"
-                placeholder={card.back}
-                onChange={handleBackChange}
-                />
-                </div>
-            </div>
-            <div className="mt-2">
-            <button className="btn btn-secondary text-white" onClick={cancelButtonHandler}>Cancel</button>
-            <button type="submit" className="btn btn-primary ml-2">Submit</button>
-            </div>
-        </form>
+
+        <h2>Edit Card</h2>
+        <CardForm 
+        submitButtonHandler={submitButtonHandler}
+        handleFrontChange={handleFrontChange}
+        handleBackChange={handleBackChange}
+        cancelButtonHandler={cancelButtonHandler}
+        card={card}
+        deckId={deckId}
+        />
+
     </div>
 )
 }
 
 export default EditCard;
+
+

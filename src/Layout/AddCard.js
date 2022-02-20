@@ -3,15 +3,20 @@ import {Link, useHistory, useParams} from "react-router-dom";
 import { readDeck, createCard } from "../utils/api/index";
 import { faHome} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CardForm from "./CardForm";
 
 
 
 function AddCard(){
 const [deck, setDeck] = useState({})
+const [card, setCard] = useState({ 
+    front: "Front side of card", 
+    back: "Back side of card" });
 const [front, setFront] = useState("");
 const [back, setBack] = useState("");
 const history=useHistory();
 const {deckId} = useParams();
+
 
     const handleFrontChange = (event) => {
         setFront(event.target.value)
@@ -28,7 +33,7 @@ const {deckId} = useParams();
              console.log(response)
         }
         loadDeck()
-    }, [])
+    }, [deckId])
 
     const submitHandler = async (event) =>{
         event.preventDefault()
@@ -61,41 +66,19 @@ return (
                  <li className="breadcrumb-item active" aria-current="page">Add Card</li>
             </ol>
          </nav>
-        <form>
-            <div >
-                <h2>{deck.name}: Add Card</h2>
-                <div className="mb-3">
-                <label htmlFor="front" className="form-label">Front</label>
-                <textarea
-                className="form-control"
-                id="front"
-                type="text"
-                name="front"
-                placeholder="Front side of card"
-                onChange={handleFrontChange}
-                value={front}
-                />
-                </div>
-                <div className="mb-3">
-                <label htmlFor="back" className="form-label">Back</label>
-                <textarea
-                className="form-control"
-                id="back"
-                type="text"
-                name="back"
-                placeholder="Back side of card"
-                onChange={handleBackChange}
-                value={back}
-                />
-                </div>
-            </div>
-            <div className="mt-2">
-            <button className="btn btn-secondary text-white" onClick={buttonHandler}>Done</button>
-            <button type="submit" className="btn btn-primary ml-2" onClick={submitHandler}>Save</button>
-            </div>
-        </form>
+         <h2>{deck.name}: Add Card</h2>
+        <CardForm 
+        submitButtonHandler={submitHandler}
+        cancelButtonHandler={buttonHandler}
+        handleFrontChange={handleFrontChange}
+        handleBackChange={handleBackChange}
+        card={card}
+        deckId={deckId}
+        />
     </div>
 )
-
 }
+
+
 export default AddCard;
+
